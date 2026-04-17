@@ -6,7 +6,7 @@ $email = $_POST['email'];
 $heslo = $_POST['heslo'];
 
 // SQL dotaz (pozor na SQL injection, ale pro školní účely zatím takto)
-$sql = "SELECT * FROM users WHERE email='$email' AND heslo='$heslo'";
+$sql = "SELECT * FROM uzivatele WHERE email='$email' AND heslo='$heslo'";
 
 $result = mysqli_query($con, $sql);
 $count_rows = mysqli_num_rows($result);
