@@ -1,21 +1,21 @@
 <?php
-session_start(); //
+session_start();
 if(!isset($_SESSION['email']))
 {
     header('location:index.php');
     exit();
 }
 
-$jmeno = $_SESSION['jmeno']; //
-$emai = $_SESSION['email']; //
-$telefon = $_SESSION['telefon']; //
+$jmeno = $_SESSION['jmeno'];
+$emai = $_SESSION['email'];
+$telefon = $_SESSION['telefon'];
 ?>
 <!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Můj Profil</title>
+    <title>Můj Profil | Testy</title>
     <style>
         body {
             background-color: #0f172a;
@@ -42,20 +42,43 @@ $telefon = $_SESSION['telefon']; //
             margin-bottom: 2rem;
         }
         h1 { color: #38bdf8; margin: 0; font-size: 1.8rem; }
+        h2 { color: #38bdf8; font-size: 1.4rem; margin: 2rem 0 1rem 0; text-align: center; }
+        
         .data-box {
             background: #0f172a;
             padding: 1.2rem;
             border-radius: 12px;
             margin-bottom: 1rem;
             display: flex;
-            flex-direction: column; /* Mobilní základ: pod sebou */
-            gap: 5px;
-        }
-        @media (min-width: 480px) { /* Pro tablety a PC: vedle sebe */
-            .data-box { flex-direction: row; justify-content: space-between; }
+            justify-content: space-between;
         }
         .label { color: #94a3b8; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }
         .value { color: white; font-weight: 500; }
+
+        /* Styly pro seznam testů - upraveno pro odkazy */
+        .test-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .test-item {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #3b82f6;
+            text-decoration: none; /* Odstraní podtržení odkazu */
+            color: #f1f5f9;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        .test-item:hover {
+            background: #334155;
+            transform: translateX(8px);
+            border-left-color: #06b6d4;
+            color: #38bdf8;
+        }
+
         .btn-logout {
             display: inline-block;
             margin-top: 2rem;
@@ -75,17 +98,30 @@ $telefon = $_SESSION['telefon']; //
 
         <div class="data-box">
             <span class="label">Jméno</span>
-            <span class="value"><?php echo $jmeno; ?></span>
+            <span class="value"><?php echo htmlspecialchars($jmeno); ?></span>
         </div>
 
         <div class="data-box">
-            <span class="label">E-mailová adresa</span>
-            <span class="value"><?php echo $emai; ?></span>
+            <span class="label">E-mail</span>
+            <span class="value"><?php echo htmlspecialchars($emai); ?></span>
         </div>
 
         <div class="data-box">
-            <span class="label">Telefonní kontakt</span>
-            <span class="value"><?php echo $telefon; ?></span>
+            <span class="label">Telefon</span>
+            <span class="value"><?php echo htmlspecialchars($telefon); ?></span>
+        </div>
+
+        <h2>Dostupné testy</h2>
+        <div class="test-list">
+            <a href="testy.php?typ=bezpecna_jizda_a" class="test-item">Zásady bezpečné jízdy [A]</a>
+            <a href="testy.php?typ=bezpecna_jizda_b" class="test-item">Zásady bezpečné jízdy [B]</a>
+            <a href="testy.php?typ=bezpecna_jizda_cd" class="test-item">Zásady bezpečné jízdy [C,D]</a>
+            <a href="testy.php?typ=dopravni_znacky" class="test-item">Dopravní značky</a>
+            <a href="testy.php?typ=situace" class="test-item">Řešení dopravních situací</a>
+            <a href="testy.php?typ=provoz" class="test-item">Podmínky provozu vozidel</a>
+            <a href="testy.php?typ=predpisy" class="test-item">Související předpisy</a>
+            <a href="testy.php?typ=zdravotnik" class="test-item">Zdravotnická příprava</a>
+            <a href="testy.php?typ=all_b" class="test-item">Soubor všech otázek + cvičná zkouška B</a>
         </div>
 
         <div style="text-align: center;">

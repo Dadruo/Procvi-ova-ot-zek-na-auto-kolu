@@ -5,7 +5,6 @@ require_once('conection.php');
 $email = $_POST['email'];
 $heslo = $_POST['heslo'];
 
-// SQL dotaz (pozor na SQL injection, ale pro školní účely zatím takto)
 $sql = "SELECT * FROM uzivatele WHERE email='$email' AND heslo='$heslo'";
 
 $result = mysqli_query($con, $sql);
@@ -14,10 +13,12 @@ $count_rows = mysqli_num_rows($result);
 if($count_rows == 1)
 {
     $row = mysqli_fetch_assoc($result);
+    $_SESSION['user_id'] = $row['user_id']; 
     $_SESSION['email'] = $email;
     $_SESSION['jmeno'] = $row['jmeno'];
     $_SESSION['telefon'] = $row['tel_cislo'];
     header("location:profile.php");
+    exit();
 }
 else {
     echo "<body style='background:#0f172a; color:#f87171; font-family:sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; text-align:center;'>";
